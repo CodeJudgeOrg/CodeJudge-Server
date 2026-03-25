@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# SQLite or local DB files (falls du mal lokal testest)
+*.db
+
+# Python egg metadata
+*.egg-info/
+
+# Logs
+*.log
+
+# Environment variables
+.env
