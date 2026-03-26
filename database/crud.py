@@ -57,4 +57,6 @@ def insertSubmission(db: Session, exerciseName: str, task: str, code: str, outpu
     # Return the object
     return submission
 
-# TODO: Receive all submissions
+# Receive all submissions
+def receiveSubmissions(db: Session):
+    return db.query(submission_table.SubmissionTable).all()
