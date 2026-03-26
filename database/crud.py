@@ -1,7 +1,11 @@
 from sqlalchemy.orm import Session
 from .tables import exercise_table, submission_table
 
-def createExercise(db: Session, name: str, description: str, exercise: str, solution: str, hint: str, difficulty: int):
+# ----------------------------------------------------
+# Exercises
+# ----------------------------------------------------
+# Insert a new exercise
+def insertExercise(db: Session, name: str, description: str, exercise: str, solution: str, hint: str, difficulty: int):
     exercise = exercise_table.Exercises(
         name = name,
         description = description,
@@ -15,6 +19,14 @@ def createExercise(db: Session, name: str, description: str, exercise: str, solu
     db.refresh(exercise)
     return exercise
 
+# Receive all exercises
+def receiveExercises(db: Session):
+    return db.query(exercise_table.Exercises).all()
+
+# ----------------------------------------------------
+# Submissions
+# ----------------------------------------------------
+# Insert a new submission
 def insertSubmission(db: Session, exerciseName: str, task: str, code: str, output: str, studentName: str):
     # Create an object of a submission
     submission = submission_table.SubmissionTable(
@@ -31,3 +43,5 @@ def insertSubmission(db: Session, exerciseName: str, task: str, code: str, outpu
 
     # Return the object
     return submission
+
+# TODO: Receive all submissions
