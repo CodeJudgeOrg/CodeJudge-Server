@@ -7,7 +7,7 @@ from schemas.exercise_schemas import ExerciseReceiveRespond
 
 router = APIRouter(prefix="/student", tags=["student"])
 
-def get_db():
+def getDB():
     db = SessionLocal()
     try:
         yield db
@@ -18,19 +18,13 @@ def get_db():
 # Exercises
 # ----------------------------------------------------
 @router.get("/retrieveExercises", response_model = list[ExerciseReceiveRespond])
-def receiveExercises(db: Session = Depends(get_db)):
+def receiveExercises(db: Session = Depends(getDB)):
     return crud.receiveExercises(db)
 
 # ----------------------------------------------------
 # Submission
 # ----------------------------------------------------
-@router.post("/uploadSubmission", response_model=SubmissionUploadRespone)
-def uploadExercise(submission: SubmissionUpload, db: Session = Depends(get_db)):
-    return crud.insertSubmission(
-        db = db,
-        exerciseName = submission.exerciseName,
-        task = submission.task,
-        code = submission.code,
-        output = submission.output,
-        studentName = submission.studentName
-    )
+@router.post("/uploadSubmissions", response_model = list[SubmissionUploadRespone])
+def uploadExercise(submissions: list[SubmissionUpload], db: Session = Depends(getDB)):
+    return crud.insertSubmissions(db, submissions)
+
