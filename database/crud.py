@@ -1,23 +1,36 @@
 from sqlalchemy.orm import Session
 from .tables import exercise_table, submission_table
+from schemas import exercise_schemas
 
 # ----------------------------------------------------
 # Exercises
 # ----------------------------------------------------
 # Insert a new exercise
-def insertExercise(db: Session, name: str, description: str, exercise: str, solution: str, hint: str, difficulty: int):
-    exercise = exercise_table.Exercises(
-        name = name,
-        description = description,
-        task = exercise,
-        solution = solution,
-        hint = hint,
-        difficulty = difficulty,
-    )
-    db.add(exercise)
-    db.commit()
-    db.refresh(exercise)
-    return exercise
+def insertExercises(db: Session, exercises: list[exercise_schemas.ExerciseCreate]):
+    created = []
+
+    for exercise in exercises:
+        # Extract each exercise
+        obj = exercise_table.Exercises(
+            name = exercise.name,
+            description = exercise.description,
+            task = exercise.task,
+            solution = exercise.solution,
+            hint = exercise.hint,
+            difficulty = exercise.difficulty
+        )
+
+        # Add the exercise to the db and a list
+        db.add(obj)
+        created.append(obj)
+
+    # Insert all exercises at once
+    db.commit(),
+
+    # Refresh the list and return it
+    for obj in created:
+        db.refresh(obj)
+    return created
 
 # Receive all exercises
 def receiveExercises(db: Session):
