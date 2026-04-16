@@ -9,12 +9,6 @@ class ExerciseCreate(BaseModel):
     hint: str
     difficulty: int
 
-class ExerciseCreateRespone(ExerciseCreate):
-    id: int
-
-    class Config:
-        orm_mode = True
-
 # Schemas when receiving an exercise
 class ExerciseReceiveRespond(BaseModel):
     id: int

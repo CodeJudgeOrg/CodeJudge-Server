@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from database.postgresql_server_db import SessionLocal
 from database import crud
-from schemas.submission_schemas import SubmissionUpload, SubmissionUploadRespone
+from schemas.submission_schemas import SubmissionUpload
 from schemas.exercise_schemas import ExerciseReceiveRespond
 
 router = APIRouter(prefix="/student", tags=["student"])
@@ -24,7 +24,7 @@ def receiveExercises(db: Session = Depends(getDB)):
 # ----------------------------------------------------
 # Submission
 # ----------------------------------------------------
-@router.post("/uploadSubmissions", response_model = list[SubmissionUploadRespone])
+@router.post("/uploadSubmissions")
 def uploadExercise(submissions: list[SubmissionUpload], db: Session = Depends(getDB)):
     return crud.insertSubmissions(db, submissions)
 

@@ -8,12 +8,6 @@ class SubmissionUpload(BaseModel):
     output: str
     studentName: str
 
-class SubmissionUploadRespone(SubmissionUpload):
-    id: int
-
-    class Config:
-        orm_mode = True
-
 # Schemas when receiving exercises
 class SubmissionReceiveResponse(BaseModel):
     id: int
