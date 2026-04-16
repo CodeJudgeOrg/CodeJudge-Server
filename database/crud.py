@@ -46,13 +46,12 @@ def insertSubmissions(db: Session, submissions = list[submission_schemas.Submiss
 
     for submission in submissions:
         # Extract each submission
-        obj = exercise_table.Exercises(
-            name = submission.name,
-            description = submission.description,
+        obj = submission_table.SubmissionTable(
+            exerciseName = submission.exerciseName,
             task = submission.task,
-            solution = submission.solution,
-            hint = submission.hint,
-            difficulty = submission.difficulty
+            code = submission.code,
+            output = submission.output,
+            studentName = submission.studentName
         )
 
         # Add the submission to the db and a list
